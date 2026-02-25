@@ -52,6 +52,19 @@ The lab is designed to simulate real-world defensive security practices in a con
 - Dynamic firewall rule injection via nftables
 - Validation of automated blocking behavior
 
+### Phase 4 – Isolated Attacker/Defender Lab
+
+- Added Kali Linux attacker VM
+- Configured VirtualBox Internal Network (`isolated-lab`)
+- Assigned static IP addresses:
+  - Ubuntu (Defender): 192.168.56.10
+  - Kali (Attacker): 192.168.56.20
+- Verified bidirectional connectivity
+- Created fully isolated environment (no internet exposure)
+- Prepared lab for controlled reconnaissance and brute-force simulation
+
+This phase transitions the lab from a single hardened host to a multi-system attacker/defender architecture.
+
 ---
 
 ## Key Security Concepts Demonstrated

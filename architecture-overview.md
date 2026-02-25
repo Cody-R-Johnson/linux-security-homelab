@@ -24,6 +24,23 @@ This allows external SSH testing from the Windows host to the Ubuntu VM while ma
 
 ---
 
+## Lab Topology (Current)
+
+VirtualBox Internal Network: isolated-lab
+
+Kali Linux (Attacker)
+IP: 192.168.56.20
+        ↓
+Ubuntu Server (Defender)
+IP: 192.168.56.10
+        ↓
+UFW + Fail2Ban + nftables
+
+Both systems are isolated from the host network and internet.
+All attack simulation is contained within the virtual environment.
+
+---
+
 ## System Components
 
 ### 1. Operating System Layer
