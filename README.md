@@ -175,18 +175,9 @@ All testing is conducted in an isolated virtual environment with no exposure to 
 
 ---
 
-## Getting Started
-
-1. Review the [Phase 1: Foundations](phase-1-foundations.md) guide to set up your environment
-2. Follow each phase sequentially to build skills progressively
-3. Review the [Architecture Overview](architecture-overview.md) to understand system components
-4. Use the [Logs Analysis](logs-analysis.md) guide to understand detection patterns
-
----
-
 ## About
 
-**Author:** Security Homelab Project  
+**Author:** Cody Johnson
 **Last Updated:** February 2026  
 **Status:** Active Development
 
