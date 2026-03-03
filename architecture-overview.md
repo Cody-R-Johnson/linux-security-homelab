@@ -8,19 +8,19 @@ The lab is hosted on:
 
 - Host OS: Windows 11
 - Hypervisor: Oracle VirtualBox
-- Guest OS: Ubuntu Server 22.04 LTS
+- Guest OS: Ubuntu Server 22.04 LTS (defender) / Kali Linux (attacker)
 
 ---
 
 ## Network Architecture
 
-VirtualBox NAT networking is used.
+This lab uses two networking modes depending on the phase:
 
-Port forwarding is configured:
+- Initial setup: VirtualBox NAT + SSH port forwarding
+        - Host Port 2222 → Guest Port 22 (SSH)
+- Isolated lab: VirtualBox Internal Network (`isolated-lab`) (and Host-Only Adapter as needed)
 
-- Host Port 2222 → Guest Port 22 (SSH)
-
-This allows external SSH testing from the Windows host to the Ubuntu VM while maintaining isolation from the broader network.
+This supports both safe host-to-VM administration during setup and fully isolated attacker/defender testing in later phases.
 
 ---
 
@@ -122,13 +122,12 @@ Each layer reduces risk independently and collectively strengthens security post
 - Automated brute-force detection
 - Dynamic IP blocking
 - Firewall rule inspection and verification
+- Isolated Kali → Ubuntu attack simulation with real-time auth log validation
 
 ---
 
 ## Next Planned Enhancements
 
 - Centralized log aggregation
-- Separate attacker VM (Kali Linux)
-- Brute-force simulation using Hydra
 - File integrity monitoring
 - Intrusion detection expansion beyond SSH

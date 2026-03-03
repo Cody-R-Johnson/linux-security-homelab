@@ -71,7 +71,7 @@ Implementing security controls to reduce attack surface and harden SSH access.
 Deploying automated detection and response for SSH brute-force attacks.
 - Fail2Ban installation and configuration
 - SSH brute-force detection rules
-- Threshold-based IP banning (5 failures in 10 minutes)
+- Threshold-based IP banning (3 failures in 10 minutes)
 - Dynamic firewall rule injection via nftables
 - Validation of automated blocking behavior
 - Ban/unban testing and verification
