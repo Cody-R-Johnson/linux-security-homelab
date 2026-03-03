@@ -28,10 +28,10 @@ The lab is designed to simulate real-world defensive security practices in a con
 
 - **Host System:** Windows 11  
 - **Hypervisor:** Oracle VM VirtualBox  
-- **Guest OS:** Ubuntu Server 22.04 LTS  
-- **RAM Allocation:** 4GB  
-- **CPU Allocation:** 2 cores  
-- **Network Mode:** NAT with SSH port forwarding (initial setup) / Internal Network (isolated lab)  
+- **Guest OS:** Ubuntu Server 22.04 LTS (defender) / Kali Linux (attacker)  
+- **RAM Allocation:** 4GB per server
+- **CPU Allocation:** 2 cores per server
+- **Network Mode:** NAT with SSH port forwarding (initial setup) / Host-Only Adapter + Internal Network (`isolated-lab`)  
 
 ---
 
@@ -49,7 +49,7 @@ The lab is designed to simulate real-world defensive security practices in a con
 
 ## Implementation Phases
 
-This project is organized into four progressive phases, each building upon the previous:
+This project is organized into five progressive phases, each building upon the previous:
 
 ### [Phase 1 – Foundations](phase-1-foundations.md)
 Establishing the baseline Ubuntu Server environment and core Linux administration skills.
@@ -89,6 +89,13 @@ Creating a multi-VM environment for realistic security testing without internet 
 
 This phase transitions the lab from a single hardened host to a multi-system attacker/defender architecture.
 
+### [Phase 5 – Brute-Force Simulation & Log Validation](phase-5-brute-force-simulation-log-validation.md)
+Simulating an SSH brute-force attack from Kali to Ubuntu and validating log visibility and correlation.
+- Hydra-based SSH brute-force simulation (port 22)
+- Live monitoring of `/var/log/auth.log` during attack execution
+- Source IP correlation between attacker and authentication failures
+- Troubleshooting of initial network/IP misalignment
+
 ---
 
 ## Key Security Concepts Demonstrated
@@ -125,6 +132,7 @@ Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once
 -  Log-based detection and monitoring
 -  Isolated attacker/defender lab environment
 -  Multi-VM architecture for security testing
+-  Brute-force simulation and authentication log validation in an isolated lab
 
 ---
 
@@ -137,6 +145,7 @@ Detailed documentation is organized into the following files:
 - **[Phase 2: Hardening](phase-2-hardening.md)** - System and SSH security hardening
 - **[Phase 3: Automated Defense](phase-3-automated-defense.md)** - Fail2Ban implementation and testing
 - **[Phase 4: Isolated Lab](phase-4-isolated-lab.md)** - Multi-VM attacker/defender environment
+- **[Phase 5: Brute-Force Simulation & Log Validation](phase-5-brute-force-simulation-log-validation.md)** - Simulated SSH brute-force and auth log validation
 
 ### Technical Documentation
 - **[Architecture Overview](architecture-overview.md)** - System architecture and component interactions
@@ -149,7 +158,6 @@ Detailed documentation is organized into the following files:
 
 ## Planned Lab Expansions
 
-- [ ] SSH brute-force simulation using Hydra (Kali VM → Ubuntu target)
 - [ ] Internal network reconnaissance and port scanning (Nmap)
 - [ ] File integrity monitoring deployment (AIDE)
 - [ ] Centralized log aggregation using rsyslog
@@ -177,8 +185,8 @@ All testing is conducted in an isolated virtual environment with no exposure to 
 
 ## About
 
-**Author:** Cody Johnson
-**Last Updated:** February 2026  
+**Author:** Cody Johnson 
+**Last Updated:** March 2026  
 **Status:** Active Development
 
 This project demonstrates a methodical approach to building security infrastructure and developing defensive security skills through hands-on practice.
