@@ -49,7 +49,7 @@ The lab is designed to simulate real-world defensive security practices in a con
 
 ## Implementation Phases
 
-This project is organized into five progressive phases, each building upon the previous:
+This project is organized into six progressive phases, each building upon the previous:
 
 ### [Phase 1 – Foundations](phase-1-foundations.md)
 Establishing the baseline Ubuntu Server environment and core Linux administration skills.
@@ -96,6 +96,15 @@ Simulating an SSH brute-force attack from Kali to Ubuntu and validating log visi
 - Source IP correlation between attacker and authentication failures
 - Troubleshooting of initial network/IP misalignment
 
+### [Phase 6 – SIEM Deployment and Brute Force Detection](phase-6-siem-deployment-brute-force-detection.md)
+Deploying Wazuh SIEM platform to monitor security events and detect authentication attacks.
+- Wazuh SIEM installation and configuration on Ubuntu Server
+- Web dashboard access and configuration
+- SSH brute-force attack simulation from Kali using Hydra
+- Real-time log ingestion from `/var/log/auth.log`
+- Security alert generation and MITRE ATT&CK framework mapping
+- SOC analyst workflow demonstration for authentication monitoring
+
 ---
 
 ## Key Security Concepts Demonstrated
@@ -133,6 +142,7 @@ Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once
 -  Isolated attacker/defender lab environment
 -  Multi-VM architecture for security testing
 -  Brute-force simulation and authentication log validation in an isolated lab
+-  Wazuh SIEM deployment with real-time security event monitoring
 
 ---
 
@@ -146,6 +156,7 @@ Detailed documentation is organized into the following files:
 - **[Phase 3: Automated Defense](phase-3-automated-defense.md)** - Fail2Ban implementation and testing
 - **[Phase 4: Isolated Lab](phase-4-isolated-lab.md)** - Multi-VM attacker/defender environment
 - **[Phase 5: Brute-Force Simulation & Log Validation](phase-5-brute-force-simulation-log-validation.md)** - Simulated SSH brute-force and auth log validation
+- **[Phase 6: SIEM Deployment and Brute Force Detection](phase-6-siem-deployment-brute-force-detection.md)** - Wazuh SIEM deployment and authentication monitoring
 
 ### Technical Documentation
 - **[Architecture Overview](architecture-overview.md)** - System architecture and component interactions
@@ -161,7 +172,7 @@ Detailed documentation is organized into the following files:
 - [ ] Internal network reconnaissance and port scanning (Nmap)
 - [ ] File integrity monitoring deployment (AIDE)
 - [ ] Centralized log aggregation using rsyslog
-- [ ] Host-based intrusion detection (Wazuh)
+- [x] Host-based intrusion detection (Wazuh)
 - [ ] Network-based IDS deployment (Suricata)
 - [ ] Documented incident response playbooks for simulated attacks
 
