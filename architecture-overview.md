@@ -34,7 +34,7 @@ IP: 192.168.56.20
 Ubuntu Server (Defender)
 IP: 192.168.56.10
         ↓
-UFW + Fail2Ban + nftables
+UFW + Fail2Ban + nftables + Wazuh SIEM
 
 Both systems are isolated from the host network and internet.
 All attack simulation is contained within the virtual environment.
@@ -86,6 +86,11 @@ Fail2Ban:
 - Ban duration: 10 minutes
 - Automatically injects firewall rules
 
+Wazuh SIEM:
+- Ingests authentication logs from Ubuntu
+- Detects and alerts on suspicious authentication activity
+- Correlates events for dashboard-based investigation
+
 ---
 
 ### 5. Prevention Layer
@@ -101,6 +106,16 @@ This creates automated host-level intrusion prevention.
 
 ---
 
+### 6. SIEM Visibility Layer
+
+Wazuh dashboard provides centralized visibility into authentication events, including repeated SSH failures generated during brute-force simulation from Kali.
+
+- Alerts are visible in the web interface
+- Authentication activity is mapped to MITRE ATT&CK credential access techniques
+- Supports SOC-style monitoring and triage workflows
+
+---
+
 ## Defense-in-Depth Model
 
 The system now implements layered defense:
@@ -110,6 +125,7 @@ The system now implements layered defense:
 3. Default-Deny Firewall Policy
 4. Log-Based Detection
 5. Automated Firewall Enforcement
+6. SIEM Alerting and Correlation
 
 Each layer reduces risk independently and collectively strengthens security posture.
 
@@ -123,6 +139,7 @@ Each layer reduces risk independently and collectively strengthens security post
 - Dynamic IP blocking
 - Firewall rule inspection and verification
 - Isolated Kali → Ubuntu attack simulation with real-time auth log validation
+- SIEM-based authentication alerting and event correlation in Wazuh
 
 ---
 
@@ -130,4 +147,4 @@ Each layer reduces risk independently and collectively strengthens security post
 
 - Centralized log aggregation
 - File integrity monitoring
-- Intrusion detection expansion beyond SSH
+- SIEM detection coverage expansion beyond SSH authentication events

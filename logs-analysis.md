@@ -73,3 +73,16 @@ sudo grep "Failed password" /var/log/auth.log | tail -n 25
 sudo grep "192.168.56.20" /var/log/auth.log | tail -n 25
 ```
 
+---
+
+## Phase 6 – SIEM Alert Validation (Wazuh)
+
+After deploying Wazuh on Ubuntu, authentication log events from `/var/log/auth.log` were ingested into the SIEM and surfaced in the dashboard as security alerts.
+
+### Validation Outcomes
+
+- Multiple SSH authentication failures appeared as Wazuh alerts
+- Alert activity correlated with brute-force traffic generated from Kali (`192.168.56.20`)
+- Events were mapped to MITRE ATT&CK credential access techniques
+- Dashboard visibility confirmed end-to-end detection from log generation to analyst view
+

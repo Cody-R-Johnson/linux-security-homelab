@@ -20,7 +20,7 @@
 
 This repository documents the development of a Linux-based security homelab focused on system hardening, log analysis, and automated intrusion prevention.
 
-The lab is designed to simulate real-world defensive security practices in a controlled virtual environment. Each phase builds progressively from foundational Linux administration to layered defensive controls, culminating in an isolated attacker/defender network for controlled security testing.
+The lab is designed to simulate real-world defensive security practices in a controlled virtual environment. Each phase builds progressively from foundational Linux administration to layered defensive controls, culminating in SIEM-based monitoring and alerting in an isolated attacker/defender network.
 
 ---
 
@@ -127,8 +127,9 @@ The system implements layered host-based defense:
 3. UFW firewall enforcement  
 4. Authentication log monitoring  
 5. Fail2Ban automated IP blocking  
+6. Wazuh SIEM alerting and event correlation  
 
-Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once configured thresholds are exceeded.
+Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once configured thresholds are exceeded, while Wazuh ingests authentication logs and surfaces correlated alerts for SOC-style investigation.
 
 ---
 
