@@ -4,43 +4,75 @@
 
 In this phase I expanded the lab by deploying the Wazuh SIEM platform on the Ubuntu server to monitor security events and detect suspicious activity.
 
-After installation, the Wazuh dashboard was accessed through the web interface and configured to monitor system logs generated on the Ubuntu machine. Once the SIEM was running, I launched another SSH brute force attack from the Kali attacker machine using Hydra.
+Wazuh manager and dashboard were installed on Ubuntu, then accessed through the web interface over HTTPS. The SIEM was configured to ingest Linux authentication logs, with `/var/log/auth.log` as the primary monitored source.
 
-During the attack, the Ubuntu server generated repeated authentication failures in `/var/log/auth.log`. Wazuh ingested these logs and created security alerts that appeared in the dashboard.
-
-The dashboard shows multiple authentication failures mapped to the MITRE ATT&CK framework under credential access techniques. The alerts correspond directly to the brute force activity generated from the Kali machine.
-
-This confirms that the SIEM is successfully collecting logs, analyzing authentication activity, and generating alerts when suspicious login attempts occur.
-
-This phase demonstrates how a SOC analyst would monitor authentication logs and investigate brute force activity using a SIEM.
+Once the SIEM was running, I launched another SSH brute force attack from the Kali attacker machine using Hydra. During this phase, the attacker source monitored in the custom detection workflow was `192.168.56.20`.
 
 ---
 
-## Key Observations
+## Firewall Configuration Fix
 
-- Multiple SSH authentication failures detected
-- Alerts generated from `/var/log/auth.log`
-- Source activity correlated with the Kali attacker machine
+During initial testing, the Wazuh dashboard was unreachable until the Ubuntu firewall was adjusted to allow HTTPS access.
+
+```bash
+sudo ufw allow 443/tcp
+```
+
+This allowed dashboard access from the host machine.
+
+---
+
+## Attack Simulation
+
+- Attack launched from Kali Linux
+- Tool used: Hydra
+- Target: Ubuntu SSH service
+- Result: repeated authentication failures generated on the target
+
+---
+
+## Log Monitoring and SIEM Ingestion
+
+During the attack, the Ubuntu server generated repeated events in `/var/log/auth.log` and Wazuh ingested them for analysis.
+
+Observed activity included:
+
+- Failed SSH login attempts
+- Invalid user authentication attempts
+- Source IP tied to attacker activity
+
+---
+
+## Custom Detection Rule
+
+A custom Wazuh rule was created in:
+
+```
+/var/ossec/etc/rules/local_rules.xml
+```
+
+The rule identifies SSH authentication failures from the known lab attacker IP and elevates severity for easier detection.
+
+```xml
+<group name="local,ssh,threat_intel">
+  <rule id="100100" level="12">
+    <if_sid>5710</if_sid>
+    <srcip>192.168.56.102</srcip>
+    <description>Threat intel match: SSH activity from known lab attacker IP</description>
+  </rule>
+</group>
+```
+
+---
+
+## Alert Detection in Wazuh
+
+Wazuh successfully generated alerts during the brute-force activity.
+
+- Alert severity level: 12
+- Rule ID: 100100
+- Alert description references known attacker IP
 - Events mapped to MITRE ATT&CK credential access techniques
-- Security events visible in the Wazuh dashboard
-
----
-
-## Lab Architecture
-
-```
-Kali Linux (Attacker)
-    ↓
-SSH brute force using Hydra
-    ↓
-Ubuntu Server (Target)
-    ↓
-Authentication logs generated (/var/log/auth.log)
-    ↓
-Wazuh SIEM ingestion
-    ↓
-Security alerts displayed in the dashboard
-```
 
 ---
 
@@ -48,35 +80,38 @@ Security alerts displayed in the dashboard
 
 ![Wazuh Dashboard showing SSH brute force alerts](screenshots/wazuh-bruteforce-alert-dashboard.png)
 
-*Screenshot : Wazuh SIEM dashboard displaying multiple SSH authentication failure alerts generated during the Hydra brute force attack from the Kali machine. Events are correlated with MITRE ATT&CK credential access techniques.*
+*Screenshot 1: Wazuh dashboard displaying multiple SSH authentication failure alerts generated during Hydra brute-force activity.*
+
+![Wazuh custom threat-intel SSH alert](screenshots/wazuh-ssh-threat-intel-alert.png)
+
+*Screenshot 2: Custom rule alert in Wazuh (Rule ID `100100`, Level `12`) highlighting SSH authentication activity from the configured lab attacker IP.*
 
 ---
 
-## What This Demonstrates
+## Key Observations
 
-**SIEM Deployment**
-- Successfully installed and configured Wazuh SIEM on Ubuntu Server
-- Web-based dashboard accessible and operational
-- Log ingestion pipeline functioning correctly
-
-**Security Monitoring**
-- Real-time detection of authentication failures
-- Correlation of security events with attacker activity
-- MITRE ATT&CK framework mapping for threat intelligence
-
-**SOC Analyst Skills**
-- Log monitoring and analysis
-- Alert triage and investigation
-- Understanding SIEM capabilities and limitations
-- Incident detection and documentation
+- Multiple SSH authentication failures detected
+- Alerts generated from `/var/log/auth.log`
+- Source activity correlated with the attacker machine
+- Custom local rule increased visibility for known attacker IP activity
+- Security events visible and investigable in the Wazuh dashboard
 
 ---
 
-## Next Steps
+## Phase Outcome
 
-With a functional SIEM in place, future phases could include:
-- Configuring custom detection rules
-- Setting up email alerting for critical events
-- Expanding monitoring to additional log sources
-- Creating dashboards for specific threat scenarios
-- Implementing automated response playbooks
+This phase confirmed:
+
+- Successful deployment of a SIEM
+- Real attack simulation from Kali to Ubuntu
+- Log ingestion from Linux host authentication logs
+- Custom detection rule creation and tuning
+- Security alert investigation in the dashboard
+
+End-to-end SOC-style workflow demonstrated:
+
+Attack simulation
+→ Log generation
+→ SIEM ingestion
+→ Custom detection rule
+→ Security alert investigation

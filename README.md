@@ -99,10 +99,11 @@ Simulating an SSH brute-force attack from Kali to Ubuntu and validating log visi
 ### [Phase 6 – SIEM Deployment and Brute Force Detection](phase-6-siem-deployment-brute-force-detection.md)
 Deploying Wazuh SIEM platform to monitor security events and detect authentication attacks.
 - Wazuh SIEM installation and configuration on Ubuntu Server
-- Web dashboard access and configuration
+- Web dashboard access over HTTPS with UFW firewall adjustment (`ufw allow 443/tcp`)
 - SSH brute-force attack simulation from Kali using Hydra
 - Real-time log ingestion from `/var/log/auth.log`
-- Security alert generation and MITRE ATT&CK framework mapping
+- Custom local rule tuning in `/var/ossec/etc/rules/local_rules.xml`
+- High-severity custom alert detection (Rule ID `100100`, Level `12`) with MITRE ATT&CK mapping
 - SOC analyst workflow demonstration for authentication monitoring
 
 ---
@@ -144,6 +145,7 @@ Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once
 -  Multi-VM architecture for security testing
 -  Brute-force simulation and authentication log validation in an isolated lab
 -  Wazuh SIEM deployment with real-time security event monitoring
+-  Custom Wazuh SSH threat-intel rule for attacker-IP alert prioritization
 
 ---
 

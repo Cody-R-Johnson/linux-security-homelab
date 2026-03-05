@@ -79,10 +79,23 @@ sudo grep "192.168.56.20" /var/log/auth.log | tail -n 25
 
 After deploying Wazuh on Ubuntu, authentication log events from `/var/log/auth.log` were ingested into the SIEM and surfaced in the dashboard as security alerts.
 
+Dashboard access required opening HTTPS through UFW:
+
+```bash
+sudo ufw allow 443/tcp
+```
+
+A custom rule was added in `/var/ossec/etc/rules/local_rules.xml` to elevate SSH authentication activity from the known lab attacker IP.
+
+Rule metadata validated in dashboard alerts:
+
+- Rule ID: `100100`
+- Severity level: `12`
+
 ### Validation Outcomes
 
 - Multiple SSH authentication failures appeared as Wazuh alerts
-- Alert activity correlated with brute-force traffic generated from Kali (`192.168.56.20`)
+- Alert activity correlated with brute-force traffic generated from Kali attacker source configured in the local rule
 - Events were mapped to MITRE ATT&CK credential access techniques
 - Dashboard visibility confirmed end-to-end detection from log generation to analyst view
 
