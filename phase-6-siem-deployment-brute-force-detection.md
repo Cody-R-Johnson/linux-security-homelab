@@ -57,7 +57,7 @@ The rule identifies SSH authentication failures from the known lab attacker IP a
 <group name="local,ssh,threat_intel">
   <rule id="100100" level="12">
     <if_sid>5710</if_sid>
-    <srcip>192.168.56.102</srcip>
+    <srcip>192.168.56.20</srcip>
     <description>Threat intel match: SSH activity from known lab attacker IP</description>
   </rule>
 </group>
