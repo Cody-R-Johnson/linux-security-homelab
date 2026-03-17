@@ -18,9 +18,9 @@
 
 ## Overview
 
-This repository documents the development of a Linux-based security homelab focused on system hardening, log analysis, and automated intrusion prevention.
+This repository documents the development of a Linux-based security homelab focused on system hardening, log analysis, automated intrusion prevention, and network-based intrusion detection.
 
-The lab is designed to simulate real-world defensive security practices in a controlled virtual environment. Each phase builds progressively from foundational Linux administration to layered defensive controls, culminating in SIEM-based monitoring and alerting in an isolated attacker/defender network.
+The lab is designed to simulate real-world defensive security practices in a controlled virtual environment. Each phase builds progressively from foundational Linux administration to layered defensive controls, culminating in SIEM-based monitoring, Python-driven log analysis, and Suricata IDS detection in an isolated attacker/defender network.
 
 ---
 
@@ -49,7 +49,7 @@ The lab is designed to simulate real-world defensive security practices in a con
 
 ## Implementation Phases
 
-This project is organized into six progressive phases, each building upon the previous:
+This project is organized into seven progressive phases, each building upon the previous:
 
 ### [Phase 1 – Foundations](phase-1-foundations.md)
 Establishing the baseline Ubuntu Server environment and core Linux administration skills.
@@ -106,6 +106,15 @@ Deploying Wazuh SIEM platform to monitor security events and detect authenticati
 - High-severity custom alert detection (Rule ID `100100`, Level `12`) with MITRE ATT&CK mapping
 - SOC analyst workflow demonstration for authentication monitoring
 
+### [Phase 7 – Python Log Analysis and Suricata IDS](phase-7-python-log-analysis-suricata-ids.md)
+Expanding host and network monitoring through Python-driven SSH log analysis and Suricata IDS deployment.
+- Python parsing of `/var/log/ssh_alerts.log` to identify attacking IPs and failed login patterns
+- Threshold-based SSH attack severity classification (Low, Medium, High, Brute Force Attack)
+- Suricata IDS installation, interface monitoring configuration, and rule set integration
+- Validation of JSON-based alert generation in `/var/log/suricata/eve.json`
+- Attack simulation from Kali with detection confirmation in host and network telemetry
+- SOC-style layered workflow combining endpoint and network visibility
+
 ---
 
 ## Key Security Concepts Demonstrated
@@ -129,8 +138,10 @@ The system implements layered host-based defense:
 4. Authentication log monitoring  
 5. Fail2Ban automated IP blocking  
 6. Wazuh SIEM alerting and event correlation  
+7. Python SSH log analysis and threat classification  
+8. Suricata IDS network alerting and packet-level detection  
 
-Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once configured thresholds are exceeded, while Wazuh ingests authentication logs and surfaces correlated alerts for SOC-style investigation.
+Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once configured thresholds are exceeded, Wazuh ingests authentication logs and surfaces correlated alerts for SOC-style investigation, and Suricata provides packet-level network detection to complement host telemetry.
 
 ---
 
@@ -146,6 +157,8 @@ Fail2Ban dynamically injects firewall rules to reject malicious SSH traffic once
 -  Brute-force simulation and authentication log validation in an isolated lab
 -  Wazuh SIEM deployment with real-time security event monitoring
 -  Custom Wazuh SSH threat-intel rule for attacker-IP alert prioritization
+-  Python-based SSH alert log analysis with attack severity classification
+-  Suricata IDS deployment with real-time network alerting via `eve.json`
 
 ---
 
@@ -160,10 +173,14 @@ Detailed documentation is organized into the following files:
 - **[Phase 4: Isolated Lab](phase-4-isolated-lab.md)** - Multi-VM attacker/defender environment
 - **[Phase 5: Brute-Force Simulation & Log Validation](phase-5-brute-force-simulation-log-validation.md)** - Simulated SSH brute-force and auth log validation
 - **[Phase 6: SIEM Deployment and Brute Force Detection](phase-6-siem-deployment-brute-force-detection.md)** - Wazuh SIEM deployment and authentication monitoring
+- **[Phase 7: Python Log Analysis and Suricata IDS](phase-7-python-log-analysis-suricata-ids.md)** - Python SSH log analytics and Suricata network intrusion detection
 
 ### Technical Documentation
 - **[Architecture Overview](architecture-overview.md)** - System architecture and component interactions
 - **[Logs Analysis](logs-analysis.md)** - Log monitoring, detection patterns, and analysis techniques
+
+### Phase Scripts
+- **[Phase 7 log_analysis.py](scripts/phase-7/log_analysis.py)** - Python parser and classifier for `/var/log/ssh_alerts.log`
 
 ### Visual Documentation
 - **[Screenshots](screenshots/)** - Visual evidence of configurations and testing
@@ -176,7 +193,7 @@ Detailed documentation is organized into the following files:
 - [ ] File integrity monitoring deployment (AIDE)
 - [ ] Centralized log aggregation using rsyslog
 - [x] Host-based intrusion detection (Wazuh)
-- [ ] Network-based IDS deployment (Suricata)
+- [x] Network-based IDS deployment (Suricata)
 - [ ] Documented incident response playbooks for simulated attacks
 
 ---
@@ -189,7 +206,9 @@ This homelab is a hands-on learning project focused on developing practical Linu
 - Linux system administration and hardening
 - Firewall configuration and management
 - Log analysis and pattern recognition
+- Python-based security log parsing and classification
 - Automated security response mechanisms
+- Network intrusion detection with Suricata
 - Attacker/defender mindset development
 - Virtual network design and isolation
 
