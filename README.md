@@ -218,7 +218,7 @@ All testing is conducted in an isolated virtual environment with no exposure to 
 
 ## About
 
-**Author:** Cody Johnson 
+**Author:** Cody Johnson  
 **Last Updated:** March 2026  
 **Status:** Active Development
 
