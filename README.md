@@ -49,7 +49,7 @@ The lab is designed to simulate real-world defensive security practices in a con
 
 ## Implementation Phases
 
-This project is organized into seven progressive phases, each building upon the previous:
+This project is organized into eight progressive phases, each building upon the previous:
 
 ### [Phase 1 – Foundations](phase-1-foundations.md)
 Establishing the baseline Ubuntu Server environment and core Linux administration skills.
@@ -115,6 +115,13 @@ Expanding host and network monitoring through Python-driven SSH log analysis and
 - Attack simulation from Kali with detection confirmation in host and network telemetry
 - SOC-style layered workflow combining endpoint and network visibility
 
+### [Phase 8 – Offensive Testing (In Progress)](phase-8-offensive-testing-in-progress.md)
+Conducting offensive testing from Kali Linux to validate coverage across existing host and network detections.
+- Nmap reconnaissance scans
+- SSH brute-force attempts
+- ICMP traffic analysis
+- Detection-gap identification against prior monitoring controls
+
 ---
 
 ## Key Security Concepts Demonstrated
@@ -174,6 +181,7 @@ Detailed documentation is organized into the following files:
 - **[Phase 5: Brute-Force Simulation & Log Validation](phase-5-brute-force-simulation-log-validation.md)** - Simulated SSH brute-force and auth log validation
 - **[Phase 6: SIEM Deployment and Brute Force Detection](phase-6-siem-deployment-brute-force-detection.md)** - Wazuh SIEM deployment and authentication monitoring
 - **[Phase 7: Python Log Analysis and Suricata IDS](phase-7-python-log-analysis-suricata-ids.md)** - Python SSH log analytics and Suricata network intrusion detection
+- **[Phase 8: Offensive Testing (In Progress)](phase-8-offensive-testing-in-progress.md)** - Ongoing attacker simulation to validate and refine detection coverage
 
 ### Technical Documentation
 - **[Architecture Overview](architecture-overview.md)** - System architecture and component interactions
